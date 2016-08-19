@@ -33,11 +33,7 @@
 
 	<!-- mapper bean -->
 
-	<bean id="productRecordMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface"
-			value="com.server.db.dao.ProductRecordMapper" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
+	
 
 	<bean id="orderRecordMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
 		<property name="mapperInterface"

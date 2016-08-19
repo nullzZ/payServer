@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.server.ChannelEnum;
 import com.server.action.ISdkPayAction;
 import com.server.db.model.OrderRecord;
 import com.server.model.OrderStateEnum;
@@ -51,8 +52,8 @@ public class AnySdkPayAction implements ISdkPayAction {
 	    return;
 	}
 
-	OrderRecord order = orderService.createOrder(channelId, serverId, orderId, productId, 1, amount2, roleId,
-		userId, System.currentTimeMillis(), "", "");// 创建订单
+	OrderRecord order = orderService.createOrder(ChannelEnum.ANY_SDK, channelId, serverId, orderId, productId, 1,
+		amount2, roleId, userId, System.currentTimeMillis(), "", "");// 创建订单
 	if (order == null) {
 	    HttpUtil.write(response, "fail");
 	    logger.error("[创建订单失败]" + orderId);

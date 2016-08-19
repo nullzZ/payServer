@@ -11,7 +11,6 @@ import com.server.manager.DispathHandleManager;
 import com.server.sdkImpl.anySdk.AnySdkDispathHandle;
 import com.server.service.impl.DispatchService;
 import com.server.service.impl.OrderService;
-import com.server.service.impl.ProductService;
 
 /**
  * 
@@ -21,8 +20,6 @@ import com.server.service.impl.ProductService;
 @Service
 public class Main {
     private static final Logger logger = Logger.getLogger(Main.class);
-    @Resource
-    private ProductService productService;
     @Resource
     private OrderService orderService;
     @Resource
@@ -34,7 +31,7 @@ public class Main {
 	    Config.loadServers();
 	    orderService.loadUnDispathOrder();
 	    dispatchService.run();
-	    
+
 	    DispathHandleManager.getInstance().register(ChannelEnum.ANY_SDK, new AnySdkDispathHandle());
 	    logger.info("[启动]充值服务器启动成功-------------!");
 	} catch (ConfigurationException e) {

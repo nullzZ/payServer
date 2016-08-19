@@ -7,6 +7,7 @@ package com.server.service;
  */
 import java.util.List;
 
+import com.server.ChannelEnum;
 import com.server.db.model.OrderRecord;
 
 public interface IOrderService {
@@ -20,9 +21,10 @@ public interface IOrderService {
 
     public void loadUnDispathOrder();
 
-    public int selectOrderCount(long orderId, String channelId);
+    // public int selectOrderCount(long orderId, String channelId);
 
-    public List<OrderRecord> selectOrder(String serverId, String roleId, long startTime, long endTime);
+    // public List<OrderRecord> selectOrder(String serverId, String roleId, long
+    // startTime, long endTime);
 
     /**
      * 
@@ -41,8 +43,9 @@ public interface IOrderService {
      *            订单详情
      * @return
      */
-    public OrderRecord createOrder(String channelId, String serverId, long orderId, String productId, int productNum,
-	    int amount, String roleId, String userId, long createTime, String ext, String orderInfo);
+    public OrderRecord createOrder(ChannelEnum channelEnum, String channelId, String serverId, long orderId,
+	    String productId, int productNum, int amount, String roleId, String userId, long createTime, String ext,
+	    String orderInfo);
 
     /**
      * 检查有效性

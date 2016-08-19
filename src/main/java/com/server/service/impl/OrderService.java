@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.server.ChannelEnum;
 import com.server.Config;
 import com.server.db.dao.OrderRecordMapper;
 import com.server.db.model.OrderRecord;
@@ -59,25 +60,28 @@ public class OrderService implements IOrderService {
 	}
     }
 
-    @Override
-    public int selectOrderCount(long orderId, String channelId) {
-	OrderRecordExample example = new OrderRecordExample();
-	example.createCriteria().andOrderIdEqualTo(orderId).andChannelIdEqualTo(channelId);
-	return orderRecordMapper.countByExample(example);
-    }
+    // @Override
+    // public int selectOrderCount(long orderId, String channelId) {
+    // OrderRecordExample example = new OrderRecordExample();
+    // example.createCriteria().andOrderIdEqualTo(orderId).andChannelIdEqualTo(channelId);
+    // return orderRecordMapper.countByExample(example);
+    // }
+
+    // @Override
+    // public List<OrderRecord> selectOrder(String serverId, String roleId, long
+    // startTime, long endTime) {
+    // OrderRecordExample example = new OrderRecordExample();
+    // example.createCriteria().andServerIdEqualTo(serverId).andRoleIdEqualTo(roleId).andCreateTimeBetween(startTime,
+    // endTime);
+    // return orderRecordMapper.selectByExample(example);
+    // }
 
     @Override
-    public List<OrderRecord> selectOrder(String serverId, String roleId, long startTime, long endTime) {
-	OrderRecordExample example = new OrderRecordExample();
-	example.createCriteria().andServerIdEqualTo(serverId).andRoleIdEqualTo(roleId).andCreateTimeBetween(startTime,
-		endTime);
-	return orderRecordMapper.selectByExample(example);
-    }
-
-    @Override
-    public OrderRecord createOrder(String channelId, String serverId, long orderId, String productId, int productNum,
-	    int amount, String roleId, String userId, long createTime, String ext, String orderInfo) {
+    public OrderRecord createOrder(ChannelEnum channelEnum, String channelId, String serverId, long orderId,
+	    String productId, int productNum, int amount, String roleId, String userId, long createTime, String ext,
+	    String orderInfo) {
 	OrderRecord order = new OrderRecord();
+	order.setSdkChannel(channelEnum.value);
 	order.setChannelId(channelId);
 	order.setCreateTime(createTime);
 	order.setServerId(serverId);
