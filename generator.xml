@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<!-- <classPathEntry location="y:\\workspace\pojo\WebContent\WEB-INF\lib\ojdbc14.jar" 
+		/> -->
+	<classPathEntry
+		location="D:\ARPGProject\payServer\WebContent\WEB-INF\lib\mysql-connector-java-5.1.26.jar" />
+	<context id="Mysql" targetRuntime="MyBatis3">
+		<!-- 开启注释 -->
+		<commentGenerator>
+			<property name="suppressAllComments" value="false" />
+			<property name="suppressDate" value="true" /><!-- 取消注释的时间 -->
+		</commentGenerator>
+
+		<!-- 数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://127.0.0.1:3306/pay_server?useUnicode=true&amp;characterEncoding=UTF-8"
+			userId="root" password="123456">
+		</jdbcConnection>
+
+		<!--允许数值类型转换成不同类型,否则都映射为BigDecimal -->
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 模型文件 -->
+		<javaModelGenerator targetPackage="com.server.db.model"
+			targetProject="payServer/src/main/java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- XML映射文件 -->
+		<sqlMapGenerator targetPackage="db.xml"
+			targetProject="payServer/src/main/resource">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- DAO文件(mapper接口) -->
+		<javaClientGenerator targetPackage="com.server.db.dao"
+			targetProject="payServer/src/main/java" type="XMLMAPPER">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+
+		<table tableName="t_product" domainObjectName="ProductRecord">
+			<!-- useActualColumnNames属性是为了使生成的model字段与数据库的字段大小写不一致 -->
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="uid" sqlStatement="Mysql"
+				identity="true" />
+		</table>
+		<table tableName="t_order" domainObjectName="OrderRecord">
+			<!-- useActualColumnNames属性是为了使生成的model字段与数据库的字段大小写不一致 -->
+			<property name="useActualColumnNames" value="true" />
+			<generatedKey column="uid" sqlStatement="Mysql"
+				identity="true" />
+		</table>
+
+	</context>
+</generatorConfiguration>

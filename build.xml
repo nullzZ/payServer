@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project basedir="." default="createWar" name="loginServer">
+	<property environment="env" />
+	<property name="target" value="1.7" />
+	<property name="source" value="1.7" />
+	<property name="project-name" value="loginServer" />
+	<property name="build" value="build" />
+	<property name="dist" value="dist" />
+	<property name="lib" value="WebContent/WEB-INF/lib" />
+	<property name="buildTarget" value="WebContent/WEB-INF/classes" />
+	<property name="src" value="src" />
+	<property name="resources" value="resource" />
+
+	<echo>${ant.java.version}</echo>
+	<echo>$</echo>
+
+	<!--设置Classpath-->
+	<path id="classpath">
+		<fileset dir="${lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<!--执行清除操作-->
+	<target name="clean">
+		<echo>执行清除历史文件操作</echo>
+		<delete dir="${build}" />
+		<delete dir="${dist}" />
+	</target>
+	<!--执行初始化操作-->
+	<target name="init" depends="clean">
+		<echo>执行创建文件夹操作：build,dist</echo>
+		<mkdir dir="${build}" />
+		<mkdir dir="${dist}" />
+		<copy todir="${build}">
+			<fileset dir="${src}">
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		<copy todir="${build}">
+			<fileset dir="${resources}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+
+	<!--编译Common-->
+
+	<!--编译XEditor-->
+	<target name="buildGameServer" depends="init">
+		<echo>编译XEditor</echo>
+		<javac destdir="${build}" debug="true" encoding="UTF-8">
+			<src path="${src}" />
+			<classpath refid="classpath" />
+
+		</javac>
+	</target>
+
+	<!--将build的文件copy到WEB-INF/classes下-->
+	<target name="copyBuild2Web" depends="buildGameServer">
+		<copy todir="${buildTarget}">
+			<fileset dir="${build}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<!--本地部署-->
+
+
+	<!--创建war文件-->
+	<target name="createWar" depends="copyBuild2Web">
+		<echo>生成War文件</echo>
+		<war destfile="${dist}/${project-name}.war" basedir="WebContent">
+			<include name="**/*" />
+		</war>
+	</target>
+
+</project>
+
