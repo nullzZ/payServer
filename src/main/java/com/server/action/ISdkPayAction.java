@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public interface ISdkPayAction {
 
     /**
-     * 客户端回调
+     * 客户端回调,获取订单号
      * 
      * @param request
      * @param response

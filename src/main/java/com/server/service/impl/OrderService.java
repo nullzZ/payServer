@@ -28,16 +28,6 @@ public class OrderService implements IOrderService {
     @Resource
     private OrderRecordMapper orderRecordMapper;
 
-    private long orderCount = 0;// 订单个数
-
-    @Override
-    public void loadOrderCount() {
-	OrderRecordExample example = new OrderRecordExample();
-	example.createCriteria().andUidIsNotNull();
-	orderCount = orderRecordMapper.countByExample(example);
-	logger.info("加载订单流水个数" + orderCount);
-    }
-
     @Override
     public OrderRecord selectOrderRecord(long orderId) {
 	OrderRecordExample example = new OrderRecordExample();
@@ -86,7 +76,7 @@ public class OrderService implements IOrderService {
 
     @Override
     public OrderRecord createOrder(String channelId, String serverId, long orderId, String productId, int productNum,
-	    String roleId, String userId, long createTime, String ext, String orderInfo) {
+	    int amount, String roleId, String userId, long createTime, String ext, String orderInfo) {
 	OrderRecord order = new OrderRecord();
 	order.setChannelId(channelId);
 	order.setCreateTime(createTime);
@@ -94,6 +84,7 @@ public class OrderService implements IOrderService {
 	order.setOrderId(orderId);
 	order.setProductId(productId);
 	order.setProductNum(productNum);
+	order.setProductAmount(amount);
 	order.setOrderExt(ext);
 	order.setRoleId(roleId);
 	order.setUserId(userId);
@@ -157,6 +148,14 @@ public class OrderService implements IOrderService {
 		OrderCacheMannager.getReDispathOrderDataQueue().offer(order);
 	    }
 	}
+    }
+
+    @Override
+    public boolean checkOrder(OrderRecord order, String channelId, String productId, int amount, String userId,
+	    String roleId, String serverId) {
+	return order.getChannelId().equals(channelId) && order.getProductId().equals(productId)
+		&& order.getProductAmount() == amount && order.getUserId().equals(userId)
+		&& order.getRoleId().equals(roleId) && order.getServerId().equals(serverId);
     }
 
 }

@@ -46,17 +46,9 @@
 		</javaClientGenerator>
 
 
-		<table tableName="t_product" domainObjectName="ProductRecord">
-			<!-- useActualColumnNames属性是为了使生成的model字段与数据库的字段大小写不一致 -->
-			<property name="useActualColumnNames" value="true" />
-			<generatedKey column="uid" sqlStatement="Mysql"
-				identity="true" />
-		</table>
 		<table tableName="t_order" domainObjectName="OrderRecord">
 			<!-- useActualColumnNames属性是为了使生成的model字段与数据库的字段大小写不一致 -->
 			<property name="useActualColumnNames" value="true" />
-			<generatedKey column="uid" sqlStatement="Mysql"
-				identity="true" />
 		</table>
 
 	</context>

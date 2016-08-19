@@ -7,6 +7,8 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
+import com.server.manager.DispathHandleManager;
+import com.server.sdkImpl.anySdk.AnySdkDispathHandle;
 import com.server.service.impl.DispatchService;
 import com.server.service.impl.OrderService;
 import com.server.service.impl.ProductService;
@@ -30,10 +32,10 @@ public class Main {
     public void init() {
 	try {
 	    Config.loadServers();
-	    productService.load();
 	    orderService.loadUnDispathOrder();
-	    orderService.loadOrderCount();
 	    dispatchService.run();
+	    
+	    DispathHandleManager.getInstance().register(ChannelEnum.ANY_SDK, new AnySdkDispathHandle());
 	    logger.info("[启动]充值服务器启动成功-------------!");
 	} catch (ConfigurationException e) {
 	    e.printStackTrace();

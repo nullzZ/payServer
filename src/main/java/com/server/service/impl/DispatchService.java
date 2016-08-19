@@ -16,8 +16,10 @@ import org.springframework.stereotype.Service;
 
 import com.server.Config;
 import com.server.db.model.OrderRecord;
+import com.server.manager.DispathHandleManager;
 import com.server.manager.OrderCacheMannager;
 import com.server.model.DispathRunnable;
+import com.server.model.IDispathHandle;
 import com.server.service.IDispatchService;
 
 /**
@@ -203,7 +205,8 @@ public class DispatchService implements IDispatchService {
     @Override
     public void dispath(OrderRecord orderData) {
 	if (orderData != null) {
-	    cachedThreadPool.submit(new DispathRunnable(orderData));
+	    IDispathHandle handle = DispathHandleManager.getInstance().get(orderData.getSdkChannel());
+	    cachedThreadPool.submit(new DispathRunnable(orderData, handle));
 	}
     }
 

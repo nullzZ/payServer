@@ -21,7 +21,7 @@
 
 	<!-- 设置使用注解的类所在的jar包 -->
 	<!-- <context:component-scan base-package="controller"></context:component-scan> -->
-	<context:component-scan base-package="com.server.action"></context:component-scan>
+	<context:component-scan base-package="com.server.sdkImpl"></context:component-scan>
 	<!-- 完成请求和注解POJO的映射 -->
 	<bean
 		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter" />

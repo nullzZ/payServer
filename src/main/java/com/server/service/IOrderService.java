@@ -11,8 +11,6 @@ import com.server.db.model.OrderRecord;
 
 public interface IOrderService {
 
-    public void loadOrderCount();
-
     public OrderRecord selectOrderRecord(long orderId);
 
     /**
@@ -27,12 +25,13 @@ public interface IOrderService {
     public List<OrderRecord> selectOrder(String serverId, String roleId, long startTime, long endTime);
 
     /**
-     * 创建订单
      * 
      * @param channelId
      * @param serverId
      * @param orderId
      * @param productId
+     * @param productNum
+     * @param amount(分)
      * @param roleId
      * @param userId
      * @param createTime
@@ -43,7 +42,19 @@ public interface IOrderService {
      * @return
      */
     public OrderRecord createOrder(String channelId, String serverId, long orderId, String productId, int productNum,
-	    String roleId, String userId, long createTime, String ext, String orderInfo);
+	    int amount, String roleId, String userId, long createTime, String ext, String orderInfo);
+
+    /**
+     * 检查有效性
+     * 
+     * @param order
+     * @param channelId
+     * @param productId
+     * @param amount(分)
+     * @return
+     */
+    public boolean checkOrder(OrderRecord order, String channelId, String productId, int amount, String userId,
+	    String roleId, String serverId);
 
     public boolean offerNewOrder(OrderRecord order);
 
