@@ -25,6 +25,11 @@ public class DispathHandleManager {
 	return instance;
     }
 
+    /**
+     * 注册发布处理类
+     * @param channelEnum
+     * @param r
+     */
     public void register(ChannelEnum channelEnum, IDispathHandle r) {
 	this.runnables.put(channelEnum.value, r);
 	logger.info("[注册处理类]channel:" + channelEnum.value);

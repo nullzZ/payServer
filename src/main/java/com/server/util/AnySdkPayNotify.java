@@ -100,17 +100,17 @@ public class AnySdkPayNotify {
 	return _strDigits[iD1] + _strDigits[iD2];
     }
 
-    /**
-     * 返回形式只为数字
-     */
-    private String _byteToNum(byte bByte) {
-	int iRet = bByte;
-	// System.out.println("iRet1=" + iRet);
-	if (iRet < 0) {
-	    iRet += 256;
-	}
-	return String.valueOf(iRet);
-    }
+    // /**
+    // * 返回形式只为数字
+    // */
+    // private String _byteToNum(byte bByte) {
+    // int iRet = bByte;
+    // // System.out.println("iRet1=" + iRet);
+    // if (iRet < 0) {
+    // iRet += 256;
+    // }
+    // return String.valueOf(iRet);
+    // }
 
     /**
      * 转换字节数组为16进制字串

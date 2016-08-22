@@ -25,7 +25,7 @@ public interface ISdkService {
      * @param serverId
      * @param productId
      * @param productNum
-     * @param amount
+     * @param amount(分)
      * @param roleId
      * @param userId
      * @param ext
