@@ -1,13 +1,7 @@
 package com.server.model;
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
-import java.nio.ByteBuffer;
-
 import org.apache.log4j.Logger;
 
-import com.server.ChannelEnum;
 import com.server.Config;
 import com.server.SpringContextUtil;
 import com.server.db.model.OrderRecord;

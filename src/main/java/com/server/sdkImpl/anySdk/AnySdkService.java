@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import com.server.Config;
-import com.server.service.ISdkService;
+import com.server.service.AbsSdkService;
 import com.server.util.AnySdkPayNotify;
 
 /**
@@ -21,8 +21,14 @@ import com.server.util.AnySdkPayNotify;
  *
  */
 @Service
-public class AnySdkService implements ISdkService {
+public class AnySdkService extends AbsSdkService {
     private static final Logger logger = Logger.getLogger(AnySdkService.class);
+
+    @Override
+    public boolean checkGProductId(String productId, int amount) {
+
+	return true;
+    }
 
     public boolean checkSign(String data, String originSign) {
 	AnySdkPayNotify paynotify = new AnySdkPayNotify();
@@ -76,8 +82,4 @@ public class AnySdkService implements ISdkService {
 	return paramValues;
     }
 
-    @Override
-    public boolean checkGProductId(String productId, String amount) {
-	return false;
-    }
 }
