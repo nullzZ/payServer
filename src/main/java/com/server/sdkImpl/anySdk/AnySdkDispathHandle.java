@@ -5,6 +5,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
+import com.server.ChannelEnum;
 import com.server.Config;
 import com.server.db.model.OrderRecord;
 import com.server.model.IDispathHandle;
@@ -62,7 +63,7 @@ public class AnySdkDispathHandle implements IDispathHandle {
 	OutputStream sOutputStream = null;
 
 	try {
-	    String host = Config.SERVERS_CONFIG.getString(channelId + "_" + serverId);// 这里必须用channelId+ServerId来区分服务器的唯一
+	    String host = Config.getServerHost(ChannelEnum.ANY_SDK.value, channelId, serverId);// 这里必须用channelId+ServerId来区分服务器的唯一
 	    if (socket == null)
 		socket = new Socket(host, Config.PORT);
 	    if (sInputStream == null)

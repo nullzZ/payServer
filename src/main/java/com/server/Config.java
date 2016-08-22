@@ -19,12 +19,16 @@ public class Config {
     public static final int PORT = 11102;
 
     private static String CONFIG_PATH = System.getProperty("myConfig");
-    public static PropertiesConfiguration SERVERS_CONFIG;
+    private static PropertiesConfiguration SERVERS_CONFIG;
 
     public static final String PrivateKey = "";
 
     public static void loadServers() throws ConfigurationException {
 	SERVERS_CONFIG = new PropertiesConfiguration(CONFIG_PATH + "/safeRemoteHost.properties");
 	SERVERS_CONFIG.setReloadingStrategy(new FileChangedReloadingStrategy());// 自动重载
+    }
+
+    public static String getServerHost(int sdkChannel, String channelId, String serverId) {
+	return SERVERS_CONFIG.getString(sdkChannel + "_" + channelId + "_" + serverId);
     }
 }

@@ -7,6 +7,7 @@ import java.nio.ByteBuffer;
 
 import org.apache.log4j.Logger;
 
+import com.server.ChannelEnum;
 import com.server.Config;
 import com.server.SpringContextUtil;
 import com.server.db.model.OrderRecord;
@@ -33,7 +34,8 @@ public class DispathRunnable implements Runnable {
 	if (this.order != null) {
 	    OrderService orderService = (OrderService) SpringContextUtil.getBean("orderService");
 	    try {
-		String serverUrl = Config.SERVERS_CONFIG.getString(order.getChannelId() + "_" + order.getServerId());
+		String serverUrl = Config.getServerHost(order.getSdkChannel(), order.getChannelId(),
+			order.getServerId());
 		if (serverUrl == null) {
 		    logger.error("发货失败",
 			    new RuntimeException("订单[" + order.getOrderId() + "]的区[" + order.getServerId() + "]不存在"));
