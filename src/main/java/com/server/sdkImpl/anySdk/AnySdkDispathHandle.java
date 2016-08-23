@@ -1,6 +1,8 @@
 package com.server.sdkImpl.anySdk;
 
+import java.io.BufferedReader;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -21,7 +23,6 @@ public class AnySdkDispathHandle implements IDispathHandle {
 	int amount = order.getProductAmount();
 	String orderId = String.valueOf(order.getOrderId());
 	String serverId = order.getServerId();
-	String ext = "";
 	long roleId = Long.parseLong(order.getRoleId());
 	String productId = order.getProductId();
 	String channelId = order.getChannelId();
@@ -30,37 +31,32 @@ public class AnySdkDispathHandle implements IDispathHandle {
 	short valueLength = (short) Config.VALUE.length();
 	short orderIdLength = (short) orderId.length();
 	short productIdLength = (short) productId.length();
-	short extLength = (short) ext.length();
 
-	// 所占字节数 2：有两个byte 16:4个int 8:4个short 8：一个long
-	short totalLength = (short) (2 + keyLength + valueLength + orderIdLength + productIdLength + extLength + 16 + 10
-		+ 8);
+	short totalLength = (short) (2 + keyLength + valueLength + orderIdLength + productIdLength + 28);
 	ByteBuffer wbb = ByteBuffer.allocate(totalLength + 2);
 	wbb.putShort(totalLength);
 
 	wbb.put((byte) 18);
-	wbb.put((byte) 32);
-	wbb.putShort(keyLength);// 21
-	wbb.put(Config.KEY.getBytes());// fjalwrjfkfj4723894723
-	wbb.putShort(valueLength);// 21
-	wbb.put(Config.VALUE.getBytes());// 235sgdsgds435435567df
-	wbb.putLong(roleId);// 81064793292668928L
-	wbb.putInt(Integer.parseInt(serverId));// 18
-	wbb.putShort(extLength);// 23
-	wbb.put(ext.getBytes());// PB708515122510385009544
-	wbb.putShort(productIdLength);// 4
-	wbb.put(productId.getBytes());// 1001
+	wbb.put((byte) 117);
+	wbb.putShort(keyLength);
+	wbb.put(Config.KEY.getBytes());
+	wbb.putShort(valueLength);
+	wbb.put(Config.VALUE.getBytes());
+	wbb.putLong(roleId);
+	wbb.putInt(Integer.parseInt(serverId));
+	wbb.putShort(orderIdLength);
+	wbb.put(orderId.getBytes());
+	wbb.putShort(productIdLength);
+	wbb.put(productId.getBytes());
 	wbb.putInt(amount);//
-	wbb.putInt(1);//
 	wbb.putInt(Integer.parseInt(channelId));
-	wbb.putShort(orderIdLength);// 23
-	wbb.put(orderId.getBytes());// PB708515122510385009544
 
 	byte[] oarray = wbb.array();
 
 	Socket socket = null;
 	InputStream sInputStream = null;
 	OutputStream sOutputStream = null;
+	BufferedReader br = null;
 
 	try {
 	    String host = Config.getServerHost(ChannelEnum.ANY_SDK.value, channelId, serverId);// 这里必须用channelId+ServerId来区分服务器的唯一
@@ -72,7 +68,21 @@ public class AnySdkDispathHandle implements IDispathHandle {
 		sOutputStream = socket.getOutputStream();
 
 	    sOutputStream.write(oarray);
-	    return true;
+
+	    // 接收服务器的相应
+	    String reply = null;
+	    int ret = -1;
+	    br = new BufferedReader(new InputStreamReader(sInputStream));
+	    while (!((reply = br.readLine()) == null)) {
+		ret = Integer.parseInt(reply);
+		System.out.println("接收服务器的信息：" + reply);
+	    }
+
+	    if (ret == 0) {
+		return true;
+	    } else {
+		return false;
+	    }
 
 	    // // 等待游戏服务器返回accessToken
 	    // int readtime = 100;
@@ -90,21 +100,22 @@ public class AnySdkDispathHandle implements IDispathHandle {
 	    // }
 	    // }
 	} catch (Exception e) {
+	    e.printStackTrace();
 	    return false;
 	} finally {
 	    try {
 
 		if (null != sInputStream) {
 		    sInputStream.close();
-		    sInputStream = null;
 		}
 		if (null != sOutputStream) {
 		    sOutputStream.close();
-		    sOutputStream = null;
 		}
 		if (null != socket) {
 		    socket.close();
-		    socket = null;
+		}
+		if (null != br) {
+		    br.close();
 		}
 	    } catch (Exception e2) {
 		return false;

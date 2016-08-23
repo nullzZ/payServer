@@ -40,9 +40,11 @@ public class DispathRunnable implements Runnable {
 		    order.setDispatchState(DispatchStateEnum.FINISH.getType());
 		    order.setDispatchTime(System.currentTimeMillis());
 		} else {
+		    logger.error("[发货失败]" + order.getOrderId());
 		    orderService.reDispath(order);
 		}
 	    } catch (Exception e) {
+		logger.error("[发货异常]" + order.getOrderId(), e);
 		orderService.reDispath(order);
 	    }
 	    orderService.updateOrder(order);

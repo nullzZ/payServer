@@ -56,17 +56,19 @@ public class AnySdkPayAction implements ISdkPayAction {
      * @param response
      */
     @Override
-    @RequestMapping(value = "/reCall", method = RequestMethod.POST)
+    @RequestMapping(value = "/reCall", method = RequestMethod.GET)
     public void reCall(HttpServletRequest request, HttpServletResponse response) {
-	// String orderId = "9999999999";
-	// String payStatus = "1";
-	// String amount = "1.1";
-	// String channelId = "0";
-	// String serverId = "1";
-	// String productId = "1.1";
-	// String roleId = "11111111";
-	// String userId = "22222222";
-	// String pay_time = "2016-01-01 12:12:12";
+//	 long orderId = 8888888l;
+//	 String payStatus = "1";
+//	 String amount = "1.1";
+//	 String channelId = "0";
+//	 String serverId = "1";
+//	 String productId = "1001";
+//	 String roleId = "81064793292668928";
+//	 String userId = "4652218415336747444";
+//	 String pay_time = "2016-01-01 12:12:12";
+//	 OrderRecord order = orderService.createOrder(ChannelEnum.ANY_SDK, channelId, serverId, orderId, productId, 1,
+//			110, roleId, userId, System.currentTimeMillis(), "", "");// 创建订单
 	try {
 	    String originSign = request.getParameter("sign");
 	    String data = anySdkService.getValues(request);
@@ -85,14 +87,12 @@ public class AnySdkPayAction implements ISdkPayAction {
 		HttpUtil.write(response, "fail");
 		return;
 	    }
-
 	    String amount = request.getParameter("amount");
 	    String channelId = request.getParameter("channel_number");
 	    String serverId = request.getParameter("server_id");
 	    String productId = request.getParameter("product_id");
 	    String roleId = request.getParameter("game_user_id");
 	    String userId = request.getParameter("user_id");
-
 	    long orderId = Long.parseLong(request.getParameter("private_data"));// 扩展字段自己的orderId
 	    int amount2 = (int) (Float.parseFloat(amount) * 100);
 
