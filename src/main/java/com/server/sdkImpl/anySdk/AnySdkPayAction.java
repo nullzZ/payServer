@@ -30,14 +30,14 @@ public class AnySdkPayAction implements ISdkPayAction {
     private OrderService orderService;
 
     @Override
-    @RequestMapping(value = "/clientReCall", method = RequestMethod.POST)
+    @RequestMapping(value = "/clientReCall", method = RequestMethod.GET)
     public void clientReCall(HttpServletRequest request, HttpServletResponse response) {
-	String channelId = "";
-	String serverId = "";
-	String productId = "";
-	String roleId = "";
-	String userId = "";
-	String amount = "";
+	String channelId = "0";
+	String serverId = "1";
+	String productId = "1001";
+	String roleId = "81064793292668928";
+	String userId = "4652218415336747444";
+	String amount = "6";
 
 	int amount2 = (int) (Float.parseFloat(amount) * 100);
 	boolean ret = anySdkService.clientReCall(ChannelEnum.ANY_SDK, channelId, serverId, productId, 1, amount2,

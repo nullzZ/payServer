@@ -15,7 +15,7 @@ public interface ISdkService {
      * @param originSign
      * @return
      */
-    public boolean checkGProductId(String productId, int amount);
+    public boolean checkGProductId(String productId, int amount,String channelId,String serverId);
 
     /**
      * 客户端回调获取订单

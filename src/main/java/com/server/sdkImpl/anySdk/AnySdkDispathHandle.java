@@ -1,8 +1,7 @@
 package com.server.sdkImpl.anySdk;
 
-import java.io.BufferedReader;
+import java.io.DataInputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
@@ -56,7 +55,7 @@ public class AnySdkDispathHandle implements IDispathHandle {
 	Socket socket = null;
 	InputStream sInputStream = null;
 	OutputStream sOutputStream = null;
-	BufferedReader br = null;
+	DataInputStream br = null;
 
 	try {
 	    String host = Config.getServerHost(ChannelEnum.ANY_SDK.value, channelId, serverId);// 这里必须用channelId+ServerId来区分服务器的唯一
@@ -70,35 +69,16 @@ public class AnySdkDispathHandle implements IDispathHandle {
 	    sOutputStream.write(oarray);
 
 	    // 接收服务器的相应
-	    String reply = null;
-	    int ret = -1;
-	    br = new BufferedReader(new InputStreamReader(sInputStream));
-	    while (!((reply = br.readLine()) == null)) {
-		ret = Integer.parseInt(reply);
-		System.out.println("接收服务器的信息：" + reply);
-	    }
-
-	    if (ret == 0) {
+	    br = new DataInputStream(sInputStream);
+	    br.readInt();
+	    byte c = br.readByte();
+	    
+	    if (c == 0) {
 		return true;
 	    } else {
 		return false;
 	    }
 
-	    // // 等待游戏服务器返回accessToken
-	    // int readtime = 100;
-	    // boolean hasGetInfo = false;
-	    // for (int i = 0; i < readtime; i++) {
-	    // int available = sInputStream.available();
-	    // if (available != 0) {
-	    // hasGetInfo = true;
-	    // }
-	    //
-	    // if (!hasGetInfo)
-	    // Thread.sleep(100);
-	    // else {
-	    // Thread.sleep(50);
-	    // }
-	    // }
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    return false;

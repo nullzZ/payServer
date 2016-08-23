@@ -25,7 +25,7 @@ public abstract class AbsSdkService implements ISdkService {
 	    int productNum, int amount, String roleId, String userId, String ext, String orderInfo) {
 
 	long orderId = UqIdUtil.buildUqId();// 生成订单ID
-	boolean checkRet = this.checkGProductId(productId, amount);
+	boolean checkRet = this.checkGProductId( productId, amount, channelId, serverId);
 	if (!checkRet) {
 	    logger.error("[订单异常][产品id,或金额异常]orderId:" + orderId + "|productId:" + productId + "|amount" + amount);
 	    return false;
