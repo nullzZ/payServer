@@ -71,7 +71,7 @@ public class AnySdkService extends AbsSdkService {
 	    sOutputStream.write(oarray);
 	    // 接收服务器的相应
 	    br = new DataInputStream(sInputStream);
-	    br.readInt();
+	    br.readInt();// short+byte+byte
 	    byte c = br.readByte();
 
 	    if (c == 0) {

@@ -70,9 +70,9 @@ public class AnySdkDispathHandle implements IDispathHandle {
 
 	    // 接收服务器的相应
 	    br = new DataInputStream(sInputStream);
-	    br.readInt();
+	    br.readInt();// short+byte+byte
 	    byte c = br.readByte();
-	    
+
 	    if (c == 0) {
 		return true;
 	    } else {
@@ -91,12 +91,13 @@ public class AnySdkDispathHandle implements IDispathHandle {
 		if (null != sOutputStream) {
 		    sOutputStream.close();
 		}
-		if (null != socket) {
-		    socket.close();
-		}
 		if (null != br) {
 		    br.close();
 		}
+		if (null != socket) {
+		    socket.close();
+		}
+
 	    } catch (Exception e2) {
 		return false;
 	    }
