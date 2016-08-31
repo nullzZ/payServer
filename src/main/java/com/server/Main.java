@@ -7,10 +7,10 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 
-import com.server.manager.DispathHandleManager;
+import com.server.core.manager.DispathHandleManager;
+import com.server.core.service.DispatchService;
+import com.server.core.service.OrderService;
 import com.server.sdkImpl.anySdk.AnySdkDispathHandle;
-import com.server.service.impl.DispatchService;
-import com.server.service.impl.OrderService;
 
 /**
  * 

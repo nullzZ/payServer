@@ -10,9 +10,6 @@ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
  *
  */
 public class Config {
-    public static final int THREAD_POOL_SIZE = Runtime.getRuntime().availableProcessors() * 2;
-    public static final int SOON_TIME = 60;
-    public static final int DispatchCount = 100;
 
     public static final String KEY = "fjalwrjfkfj4723894723";
     public static final String VALUE = "235sgdsgds435435567df";

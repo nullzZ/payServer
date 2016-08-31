@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 
 import com.server.ChannelEnum;
 import com.server.Config;
-import com.server.service.AbsSdkService;
+import com.server.core.service.AbsSdkService;
 import com.server.util.AnySdkPayNotify;
 
 /**

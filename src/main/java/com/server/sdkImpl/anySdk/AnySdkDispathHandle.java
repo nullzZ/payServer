@@ -8,8 +8,8 @@ import java.nio.ByteBuffer;
 
 import com.server.ChannelEnum;
 import com.server.Config;
+import com.server.core.model.IDispathHandle;
 import com.server.db.model.OrderRecord;
-import com.server.model.IDispathHandle;
 
 /**
  * @author nullzZ
