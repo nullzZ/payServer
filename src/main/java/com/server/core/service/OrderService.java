@@ -30,14 +30,11 @@ public class OrderService implements IOrderService {
 
     @Override
     public OrderRecord selectOrderRecord(long orderId) {
-	OrderRecordExample example = new OrderRecordExample();
-	example.createCriteria().andOrderIdEqualTo(orderId);
-	List<OrderRecord> list = orderRecordMapper.selectByExample(example);
-	if (list == null || list.size() <= 0) {
-	    return null;
-	} else {
-	    return list.get(0);
+	OrderRecord order = OrderCacheMannager.getTemporaryOrder(orderId);
+	if (order == null) {
+	    order = orderRecordMapper.selectByPrimaryKey(orderId);
 	}
+	return order;
     }
 
     @Override
@@ -99,6 +96,8 @@ public class OrderService implements IOrderService {
 
 	if (!this.insertDB(order)) {
 	    return null;
+	} else {
+	    OrderCacheMannager.addTemporaryOrder(order);
 	}
 	return order;
     }

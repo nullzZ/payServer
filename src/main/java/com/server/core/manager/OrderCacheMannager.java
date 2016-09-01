@@ -1,8 +1,10 @@
 package com.server.core.manager;
 
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 
+import com.server.core.Config;
 import com.server.db.model.OrderRecord;
 
 /**
@@ -14,6 +16,11 @@ import com.server.db.model.OrderRecord;
  * 
  */
 public class OrderCacheMannager {
+
+    /**
+     * 临时订单
+     */
+    private static ConcurrentHashMap<Long, OrderRecord> temporaryOrders = new ConcurrentHashMap<>();
 
     /**
      * 新订单队列
@@ -40,6 +47,18 @@ public class OrderCacheMannager {
 
     public static BlockingQueue<OrderRecord> getSoonDispathOrderQueue() {
 	return soonDispathOrderQueue;
+    }
+
+    public static OrderRecord getTemporaryOrder(long key) {
+	return temporaryOrders.get(key);
+    }
+
+    public static void addTemporaryOrder(OrderRecord record) {
+	if (temporaryOrders.size() >= Config.TemporaryOrderSize) {
+	    temporaryOrders.clear();
+	} else {
+	    temporaryOrders.put(record.getOrderId(), record);
+	}
     }
 
 }
