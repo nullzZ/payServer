@@ -54,6 +54,8 @@ public class OrderService implements IOrderService {
 	for (OrderRecord data : unDispathOrderDataList) {
 	    OrderCacheMannager.getReDispathOrderDataQueue().offer(data);
 	}
+
+	logger.info("[加载未成功发货的订单][个数:" + OrderCacheMannager.getReDispathOrderDataQueue().size() + "]");
     }
 
     // @Override

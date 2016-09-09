@@ -62,6 +62,7 @@ public class DispatchService implements IDispatchService {
     public void destroy() {
 	scheduledThreadPool.shutdown();
 	cachedThreadPool.shutdown();
+	logger.info("[stop发货服务]");
     }
 
     /**

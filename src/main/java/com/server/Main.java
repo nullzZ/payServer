@@ -1,6 +1,7 @@
 package com.server;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 import javax.annotation.Resource;
 
 import org.apache.commons.configuration.ConfigurationException;
@@ -38,6 +39,11 @@ public class Main {
 	    e.printStackTrace();
 	    System.exit(0);
 	}
+    }
+
+    @PreDestroy
+    public void stop() {
+	dispatchService.destroy();
     }
 
 }
