@@ -15,7 +15,7 @@ public interface ISdkService {
      * @param originSign
      * @return
      */
-    public boolean checkGProductId(String productId, int amount,String channelId,String serverId);
+    public boolean checkGProductId(String productId, int amount, String channelId, String serverId);
 
     /**
      * 客户端回调获取订单
@@ -30,9 +30,9 @@ public interface ISdkService {
      * @param userId
      * @param ext
      * @param orderInfo
-     * @return
+     * @return long(订单ID,注:>0成功)
      */
-    public boolean clientReCall(ChannelEnum channelEnum, String channelId, String serverId, String productId,
+    public long clientReCall(ChannelEnum channelEnum, String channelId, String serverId, String productId,
 	    int productNum, int amount, String roleId, String userId, String ext, String orderInfo);
 
     /**

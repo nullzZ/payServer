@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.server.ChannelEnum;
 import com.server.core.action.ISdkPayAction;
-import com.server.core.service.OrderService;
+import com.server.core.service.impl.OrderService;
 import com.server.core.util.HttpUtil;
 
 /**
@@ -40,9 +40,9 @@ public class AnySdkPayAction implements ISdkPayAction {
 	String amount = "6";
 
 	int amount2 = (int) (Float.parseFloat(amount) * 100);
-	boolean ret = anySdkService.clientReCall(ChannelEnum.ANY_SDK, channelId, serverId, productId, 1, amount2,
-		roleId, userId, "", "");
-	if (!ret) {
+	long ret = anySdkService.clientReCall(ChannelEnum.ANY_SDK, channelId, serverId, productId, 1, amount2, roleId,
+		userId, "", "");
+	if (ret <= 0) {
 	    HttpUtil.write(response, "fail");
 	    return;
 	}
@@ -58,17 +58,18 @@ public class AnySdkPayAction implements ISdkPayAction {
     @Override
     @RequestMapping(value = "/reCall", method = RequestMethod.GET)
     public void reCall(HttpServletRequest request, HttpServletResponse response) {
-//	 long orderId = 8888888l;
-//	 String payStatus = "1";
-//	 String amount = "1.1";
-//	 String channelId = "0";
-//	 String serverId = "1";
-//	 String productId = "1001";
-//	 String roleId = "81064793292668928";
-//	 String userId = "4652218415336747444";
-//	 String pay_time = "2016-01-01 12:12:12";
-//	 OrderRecord order = orderService.createOrder(ChannelEnum.ANY_SDK, channelId, serverId, orderId, productId, 1,
-//			110, roleId, userId, System.currentTimeMillis(), "", "");// 创建订单
+	// long orderId = 8888888l;
+	// String payStatus = "1";
+	// String amount = "1.1";
+	// String channelId = "0";
+	// String serverId = "1";
+	// String productId = "1001";
+	// String roleId = "81064793292668928";
+	// String userId = "4652218415336747444";
+	// String pay_time = "2016-01-01 12:12:12";
+	// OrderRecord order = orderService.createOrder(ChannelEnum.ANY_SDK,
+	// channelId, serverId, orderId, productId, 1,
+	// 110, roleId, userId, System.currentTimeMillis(), "", "");// 创建订单
 	try {
 	    String originSign = request.getParameter("sign");
 	    String data = anySdkService.getValues(request);

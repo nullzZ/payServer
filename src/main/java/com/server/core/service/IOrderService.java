@@ -66,4 +66,18 @@ public interface IOrderService {
     public void reDispath(OrderRecord order);
 
     public boolean insertDB(OrderRecord order);
+
+    /**
+     * 订单补偿
+     * 
+     * @param channelEnum
+     * @param channelId
+     * @param serverId
+     * @param roleId
+     * @param userId
+     * @param amount
+     * @return
+     */
+    public boolean compensateOrder(ChannelEnum channelEnum, String channelId, String serverId, String roleId,
+	    String userId, int amount);
 }

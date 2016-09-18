@@ -3,7 +3,7 @@ package com.server.core.model;
 import org.apache.log4j.Logger;
 
 import com.server.Config;
-import com.server.core.service.OrderService;
+import com.server.core.service.impl.OrderService;
 import com.server.core.util.SpringContextUtil;
 import com.server.db.model.OrderRecord;
 
