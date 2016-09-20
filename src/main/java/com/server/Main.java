@@ -31,6 +31,7 @@ public class Main {
     @PostConstruct
     public void init() {
 	try {
+	    Config.loadSafeIp();
 	    serverSercice.load();
 	    orderService.loadUnDispathOrder();
 	    dispatchService.run();
