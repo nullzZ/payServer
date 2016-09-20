@@ -18,23 +18,24 @@ import com.server.core.util.HttpUtil;
  *
  */
 @Controller
+@RequestMapping(value = "/s")
 public class PayAction {
 
     // private static final Logger logger = Logger.getLogger(PayAction.class);
     @Resource
     private OrderService orderService;
 
-    @RequestMapping(value = "/pay", method = RequestMethod.POST)
+    @RequestMapping(value = "/payProductId", method = RequestMethod.POST)
     public void clientReCall(HttpServletRequest request, HttpServletResponse response) {
 	String sdk = request.getParameter("sdk");
 	String channelId = request.getParameter("channelId");
 	String serverId = request.getParameter("serverId");
 	String roleId = request.getParameter("roleId");
 	String userId = request.getParameter("userId");
-	String amount = request.getParameter("amount");
+	String productId = request.getParameter("productId");
 
 	boolean ret = orderService.compensateOrder(ChannelEnum.get(Integer.parseInt(sdk)), channelId, serverId, roleId,
-		userId, Integer.parseInt(amount));
+		userId, productId);
 	if (ret) {
 	    HttpUtil.write(response, "ok");
 	} else {

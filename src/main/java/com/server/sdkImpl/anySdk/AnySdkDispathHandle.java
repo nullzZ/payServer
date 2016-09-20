@@ -6,9 +6,10 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 
-import com.server.ChannelEnum;
 import com.server.Config;
+import com.server.core.manager.ServerManager;
 import com.server.core.model.IDispathHandle;
+import com.server.core.model.ServerRecord;
 import com.server.db.model.OrderRecord;
 
 /**
@@ -58,9 +59,14 @@ public class AnySdkDispathHandle implements IDispathHandle {
 	DataInputStream br = null;
 
 	try {
-	    String host = Config.getServerHost(ChannelEnum.ANY_SDK.value, channelId, serverId);// 这里必须用channelId+ServerId来区分服务器的唯一
+	    ServerRecord server = ServerManager.getInstance().get(channelId, serverId);
+	    if (server == null) {
+		return false;
+	    }
+	    // String host = Config.getServerHost(ChannelEnum.ANY_SDK.value,
+	    // channelId, serverId);// 这里必须用channelId+ServerId来区分服务器的唯一
 	    if (socket == null)
-		socket = new Socket(host, Config.PORT);
+		socket = new Socket(server.getHost(), server.getPort());
 	    if (sInputStream == null)
 		sInputStream = socket.getInputStream();
 	    if (sOutputStream == null)

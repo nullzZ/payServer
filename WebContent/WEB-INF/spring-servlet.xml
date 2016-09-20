@@ -35,4 +35,11 @@
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver"
 		p:prefix="/WEB-INF" p:suffix=".jsp" />
 
+	<mvc:interceptors>
+		<mvc:interceptor>
+			<mvc:mapping path="/s/*" />
+			<bean class="com.server.interceptor.IPInterceptor">
+			</bean>
+		</mvc:interceptor>
+	</mvc:interceptors>
 </beans>

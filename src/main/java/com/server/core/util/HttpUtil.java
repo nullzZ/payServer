@@ -11,6 +11,7 @@ import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
@@ -260,5 +261,73 @@ public class HttpUtil {
 	    }
 	}
 	return params.toString();
+    }
+
+    /**
+     * 获取IP地址
+     * 
+     * @param request
+     * @return
+     */
+    public static String getIp(HttpServletRequest request) {
+	String ip = request.getHeader("x-forwarded-for");
+	if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	    ip = request.getHeader("Proxy-Client-IP");
+	}
+	if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	    ip = request.getHeader("WL-Proxy-Client-IP");
+	}
+	if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+	    ip = request.getRemoteAddr();
+	}
+
+	if (ip != null)
+	    ip = getFirstIp(ip);
+
+	return ip;
+    }
+
+    private static String getFirstIp(String ipString) {
+	String ip = null;
+	String[] ipList = ipString.split(",");
+	if (ipList != null && ipList.length > 1) {
+	    ip = ipList[0];
+	} else {
+	    ip = ipString;
+	}
+	return ip;
+    }
+
+    public static JSONObject doPost(String url) throws Exception {
+	String data = "";
+	URL dataUrl = new URL(url);
+	HttpURLConnection con = (HttpURLConnection) dataUrl.openConnection();
+	con.setRequestMethod("POST");
+	con.setRequestProperty("Proxy-Connection", "Keep-Alive");
+	con.setRequestProperty("accept", "*/*");
+	con.setRequestProperty("connection", "Keep-Alive");
+	// con.setConnectTimeout(5000);
+	// con.setRequestProperty("Content-type", "application/json"
+	// + ";charset=UTF-8");
+	con.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+	con.setDoOutput(true);
+	con.setDoInput(true);
+
+	BufferedReader reader = new BufferedReader(new InputStreamReader(con.getInputStream()));
+	String lines;
+	StringBuffer sb = new StringBuffer("");
+	while ((lines = reader.readLine()) != null) {
+	    lines = new String(lines.getBytes(), "utf-8");
+	    sb.append(lines);
+	}
+
+	data = sb.toString();
+	reader.close();
+	con.disconnect();
+	JSONObject ret = null;
+	if (data != null && !data.equals("")) {
+	    ret = new JSONObject(data);
+	}
+	return ret;
     }
 }

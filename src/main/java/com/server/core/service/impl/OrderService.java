@@ -166,9 +166,9 @@ public class OrderService implements IOrderService {
 
     @Override
     public boolean compensateOrder(ChannelEnum channelEnum, String channelId, String serverId, String roleId,
-	    String userId, int amount) {
+	    String userId, String productId) {
 	long orderId = UqIdUtil.buildUqId();
-	OrderRecord order = this.createOrder(channelEnum, channelId, serverId, orderId, "0", 1, amount, roleId, userId,
+	OrderRecord order = this.createOrder(channelEnum, channelId, serverId, orderId, productId, 1, 0, roleId, userId,
 		System.currentTimeMillis(), "", "补单");
 	if (order == null) {
 	    logger.info("[补单]创建订单失败");

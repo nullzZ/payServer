@@ -75,9 +75,9 @@ public interface IOrderService {
      * @param serverId
      * @param roleId
      * @param userId
-     * @param amount
+     * @param productId
      * @return
      */
     public boolean compensateOrder(ChannelEnum channelEnum, String channelId, String serverId, String roleId,
-	    String userId, int amount);
+	    String userId, String productId);
 }

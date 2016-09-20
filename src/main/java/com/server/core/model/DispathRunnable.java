@@ -2,7 +2,7 @@ package com.server.core.model;
 
 import org.apache.log4j.Logger;
 
-import com.server.Config;
+import com.server.core.manager.ServerManager;
 import com.server.core.service.impl.OrderService;
 import com.server.core.util.SpringContextUtil;
 import com.server.db.model.OrderRecord;
@@ -28,9 +28,19 @@ public class DispathRunnable implements Runnable {
 	if (this.order != null) {
 	    OrderService orderService = (OrderService) SpringContextUtil.getBean("orderService");
 	    try {
-		String serverUrl = Config.getServerHost(order.getSdkChannel(), order.getChannelId(),
-			order.getServerId());
-		if (serverUrl == null) {
+		ServerRecord server = ServerManager.getInstance().get(order.getChannelId(), order.getServerId());
+		// String serverUrl =
+		// Config.getServerHost(order.getSdkChannel(),
+		// order.getChannelId(),
+		// order.getServerId());
+		// if (serverUrl == null) {
+		// logger.error("发货失败",
+		// new RuntimeException("订单[" + order.getOrderId() + "]的区[" +
+		// order.getServerId() + "]不存在"));
+		// return;
+		// }
+
+		if (server == null) {
 		    logger.error("发货失败",
 			    new RuntimeException("订单[" + order.getOrderId() + "]的区[" + order.getServerId() + "]不存在"));
 		    return;
