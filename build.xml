@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<project basedir="." default="createWar" name="loginServer">
+<project basedir="." default="createWar" name="payServer">
 	<property environment="env" />
 	<property name="target" value="1.7" />
 	<property name="source" value="1.7" />
-	<property name="project-name" value="loginServer" />
+	<property name="project-name" value="payServer" />
 	<property name="build" value="build" />
 	<property name="dist" value="dist" />
 	<property name="lib" value="WebContent/WEB-INF/lib" />

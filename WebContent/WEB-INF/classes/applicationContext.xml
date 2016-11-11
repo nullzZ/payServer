@@ -16,7 +16,7 @@
 		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
 		<property name="locations">
 			<list>
-				<value>file:${myConfig}/jdbc.properties</value><!-- 要在在jvm里加入myconfig参数 -->
+				<value>file:${myPayConfig}/jdbc.properties</value><!-- 要在在jvm里加入myconfig参数 -->
 				<!-- <value>classpath:jdbc.properties</value> -->
 			</list>
 		</property>

@@ -184,7 +184,7 @@ public class DispatchService implements IDispatchService {
 	int invalidCount = 0;
 	for (OrderRecord orderData : reDispathOrderList) {
 	    if (orderData != null) {
-		if (orderData.getNextDispatchTime() - now <= Config.SOON_TIME * 1000) {
+		if (orderData.getNextDispatchTime() - now <= 0) {
 		    OrderCacheMannager.getSoonDispathOrderQueue().offer(orderData);
 		    soonCount++;
 		} else {

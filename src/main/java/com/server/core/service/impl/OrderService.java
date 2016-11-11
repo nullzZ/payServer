@@ -149,7 +149,7 @@ public class OrderService implements IOrderService {
 	    } else {
 		order.setDispatchState(DispatchStateEnum.READY.getType());
 		order.setDispatchCount(order.getDispatchCount() + 1);
-		long d = System.currentTimeMillis() + Config.SOON_TIME;
+		long d = System.currentTimeMillis() + Config.SOON_TIME * order.getDispatchCount();
 		order.setNextDispatchTime(d);
 		OrderCacheMannager.getReDispathOrderDataQueue().offer(order);
 	    }
