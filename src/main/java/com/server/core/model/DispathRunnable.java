@@ -28,7 +28,7 @@ public class DispathRunnable implements Runnable {
 	if (this.order != null) {
 	    OrderService orderService = (OrderService) SpringContextUtil.getBean("orderService");
 	    try {
-		ServerRecord server = ServerManager.getInstance().get(order.getChannelId(), order.getServerId());
+		ServerRecord server = ServerManager.getInstance().get(order.getServerId());
 		// String serverUrl =
 		// Config.getServerHost(order.getSdkChannel(),
 		// order.getChannelId(),

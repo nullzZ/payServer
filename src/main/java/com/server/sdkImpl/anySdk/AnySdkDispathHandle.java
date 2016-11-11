@@ -59,7 +59,7 @@ public class AnySdkDispathHandle implements IDispathHandle {
 	DataInputStream br = null;
 
 	try {
-	    ServerRecord server = ServerManager.getInstance().get(channelId, serverId);
+	    ServerRecord server = ServerManager.getInstance().get(serverId);
 	    if (server == null) {
 		return false;
 	    }

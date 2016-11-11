@@ -5,6 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,11 +44,20 @@ public class AnySdkPayAction implements ISdkPayAction {
 	int amount2 = (int) (Float.parseFloat(amount) * 100);
 	long ret = anySdkService.clientReCall(ChannelEnum.ANY_SDK, channelId, serverId, productId, 1, amount2, roleId,
 		userId, "", "");
-	if (ret <= 0) {
-	    HttpUtil.write(response, "fail");
-	    return;
+	JSONObject retObj = new JSONObject();
+	try {
+	    if (ret <= 0) {
+		retObj.put("state", "1");
+		retObj.put("orderId", "0");
+	    } else {
+		retObj.put("state", "0");
+		retObj.put("orderId", String.valueOf(ret));
+	    }
+
+	    HttpUtil.write(response, retObj);
+	} catch (JSONException e) {
+	    logger.error("[异常]", e);
 	}
-	HttpUtil.write(response, "ok");
     }
 
     /**
