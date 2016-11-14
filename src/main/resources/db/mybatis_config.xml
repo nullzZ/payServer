@@ -4,8 +4,4 @@
 	<settings>
 		<setting name="logImpl" value="LOG4J" />
 	</settings>
-	<mappers>
-		<mapper resource="db/xml/OrderRecordMapper.xml" />
-
-	</mappers>
 </configuration>

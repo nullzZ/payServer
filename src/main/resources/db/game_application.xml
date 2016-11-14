@@ -22,25 +22,17 @@
 	<!-- 使用spring的会话管理 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="c3p0DataSource" />
-		<!-- <property name="configLocation" value="classpath:db/mybatis_config.xml" /> -->
+		<property name="configLocation" value="classpath:db/mybatis_config.xml" />
 		<property name="mapperLocations" value="classpath:db/xml/*.xml" />
 	</bean>
-
-	<!-- 使用spring的事务管理 -->
-	<bean name="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="c3p0DataSource"></property>
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.server.db.dao" />
 	</bean>
 
-	<!-- mapper bean -->
 
-	
+	<!-- <bean id="orderRecordMapper" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="mapperInterface" value="com.server.db.dao.OrderRecordMapper" 
+		/> <property name="sqlSessionFactory" ref="sqlSessionFactory" /> </bean> -->
 
-	<bean id="orderRecordMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
-		<property name="mapperInterface"
-			value="com.server.db.dao.OrderRecordMapper" />
-		<property name="sqlSessionFactory" ref="sqlSessionFactory" />
-	</bean>
-	
 
 </beans>
