@@ -14,8 +14,8 @@ import org.apache.commons.configuration.reloading.FileChangedReloadingStrategy;
  */
 public class Config {
 
-    public static final String KEY = "fjalwrjfkfj4723894723";
-    public static final String VALUE = "235sgdsgds435435567df";
+    public static final String KEY = "1123123";
+    public static final String VALUE = "232323";
     public static final String PrivateKey = "";
     public static final String LoginServerURL = "http://127.0.0.1:8090/loginServer/s/servers";
     private static String CONFIG_PATH = System.getProperty("myPayConfig");
